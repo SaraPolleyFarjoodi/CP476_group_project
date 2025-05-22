@@ -1,0 +1,18 @@
+[Tue May 20 16:44:26.759461 2025] [php:error] [pid 21:tid 21] [client 172.19.0.1:37384] PHP Fatal error:  Uncaught Error: Call to undefined function htmlspecialcharss() in /var/www/html/index.php:5\nStack trace:\n#0 {main}\n  thrown in /var/www/html/index.php on line 5
+172.19.0.1 - - [20/May/2025:16:44:26 +0000] "GET / HTTP/1.1" 200 454 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+[Tue May 20 16:46:53.838926 2025] [php:error] [pid 22:tid 22] [client 172.19.0.1:59754] PHP Fatal error:  Uncaught Error: Call to undefined function htmlspecialcharss() in /var/www/html/index.php:5\nStack trace:\n#0 {main}\n  thrown in /var/www/html/index.php on line 5
+172.19.0.1 - - [20/May/2025:16:46:53 +0000] "GET / HTTP/1.1" 200 454 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.19.0.1 - - [20/May/2025:16:47:35 +0000] "GET / HTTP/1.1" 200 262 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.19.0.1 - - [20/May/2025:18:27:19 +0000] "GET / HTTP/1.1" 200 262 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.19.0.1 - - [20/May/2025:18:31:27 +0000] "GET / HTTP/1.1" 200 381 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.19.0.1 - - [20/May/2025:18:33:00 +0000] "GET / HTTP/1.1" 200 381 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.19.0.1 - - [20/May/2025:18:33:26 +0000] "GET / HTTP/1.1" 200 381 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.19.0.1 - - [20/May/2025:18:33:32 +0000] "GET / HTTP/1.1" 200 381 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.19.0.1 - - [20/May/2025:18:34:05 +0000] "GET / HTTP/1.1" 200 381 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.20.0.1 - - [20/May/2025:18:37:28 +0000] "GET / HTTP/1.1" 200 296 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.20.0.1 - - [20/May/2025:18:38:30 +0000] "GET / HTTP/1.1" 200 296 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.20.0.1 - - [20/May/2025:18:40:25 +0000] "GET / HTTP/1.1" 200 396 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.20.0.1 - - [20/May/2025:18:40:27 +0000] "GET / HTTP/1.1" 200 395 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.20.0.1 - - [20/May/2025:18:40:28 +0000] "GET / HTTP/1.1" 200 395 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.20.0.1 - - [20/May/2025:18:40:29 +0000] "GET / HTTP/1.1" 200 395 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
+172.20.0.1 - - [20/May/2025:18:40:29 +0000] "GET / HTTP/1.1" 200 395 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
