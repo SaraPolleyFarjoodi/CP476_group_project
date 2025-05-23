@@ -1,12 +1,20 @@
 <?php
-$dsn = 'mysql:host=db;dbname=myapp;charset=utf8';
-$user = 'appuser';
-$pass = 'apppass';
+session_start();
+
+//prevent people from typing the URL to the dashbaord page directly before logging in
+if (!isset($_SESSION['db_user']) || !isset($_SESSION['db_pass'])) { //check if username and password are delcared and different than NULL
+    die("Access denied. Please <a href='index.php'>login</a> first."); //provide message to user and link to the login page
+}
+
+//login process should have saved the credentials in the session using the super global variable so we can access them here
+$user = $_SESSION['db_user'];
+$pass = $_SESSION['db_pass'];
 
 try {
-    $pdo = new PDO($dsn, $user, $pass);
+    $pdo = new PDO('mysql:host=db;dbname=myapp;charset=utf8', $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    //sample code to fetch data from MySQL database
     $tables = ['NameTable', 'CourseTable', 'FinalGradeTable'];
 
     foreach ($tables as $table) {
@@ -34,6 +42,6 @@ try {
     }
 
 } catch (PDOException $e) {
-    echo "<p>❌ Error: " . htmlspecialchars($e->getMessage()) . "</p>";
+    echo "Failed to connect or fetch data.";
 }
 ?>
