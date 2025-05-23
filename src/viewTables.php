@@ -10,6 +10,7 @@ if (!isset($_SESSION['db_user']) || !isset($_SESSION['db_pass'])) { //check if u
 $user = $_SESSION['db_user'];
 $pass = $_SESSION['db_pass'];
 
+//access the database and fetch data from the tables
 try {
     $pdo = new PDO('mysql:host=db;dbname=myapp;charset=utf8', $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
