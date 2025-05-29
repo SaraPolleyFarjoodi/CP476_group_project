@@ -16,7 +16,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") { //check if the form is submitted (the
         //save credentials in session using super global variable
         $_SESSION['db_user'] = $user;
         $_SESSION['db_pass'] = $pass;
-        header("Location: userdashboard.php"); //send HTTP header to redirect the user to the userdashboard.php page
+        header("Location: userDashboard.php"); //send HTTP header to redirect the user to the userdashboard.php page
         exit();
     } catch (PDOException $e) {
         $error = "Incorrect username or password. ";
