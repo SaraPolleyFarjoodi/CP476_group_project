@@ -39,76 +39,65 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+<h2>Delete</h2>
+<?php if($error): ?>
+    <p style="color: red;"><?= htmlspecialchars($error)?></p>
+<?php endif; ?>
+<form method="post" action="userDashboard.php">
+    <input type="hidden" name="action" value="delete">
+    
+    <label for="table">DELETE FROM</label>
+    <input type="text" id="table" name="table" required><br><br>
+    
+    <label for="whereColumn">WHERE</label>
+    <input type="text" id="whereColumn" name="whereColumn" required>
+    
+    <select name="sqlOperator" required>
+        <option value="=">=</option>
+        <option value="!=">!=</option>
+        <option value=">">&gt;</option>
+        <option value="<">&lt;</option>
+        <option value=">=">&gt;=</option>
+        <option value="<=">&lt;=</option>
+        <option value="LIKE">LIKE</option>
+        <option value="NOT LIKE">NOT LIKE</option>
+    </select>
+    
+    <input type="text" id="columnValue" name="columnValue" required><br><br>
+    
+    <input type="submit" value="Delete">
+</form>
 
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Update and Delete</title>
-</head>
-<body>
-    <h2>Delete</h2>
-    <?php if($error): ?>
-        <p style="color: red;"><?= htmlspecialchars($error)?></p>
-    <?php endif; ?>
-    <form method="post" action="userDashboard.php">
-        <input type="hidden" name="action" value="delete">
-        
-        <label for="table">DELETE FROM</label>
-        <input type="text" id="table" name="table" required><br><br>
-        
-        <label for="whereColumn">WHERE</label>
-        <input type="text" id="whereColumn" name="whereColumn" required>
-        
-        <select name="sqlOperator" required>
-            <option value="=">=</option>
-            <option value="!=">!=</option>
-            <option value=">">&gt;</option>
-            <option value="<">&lt;</option>
-            <option value=">=">&gt;=</option>
-            <option value="<=">&lt;=</option>
-            <option value="LIKE">LIKE</option>
-            <option value="NOT LIKE">NOT LIKE</option>
-        </select>
-        
-        <input type="text" id="columnValue" name="columnValue" required><br><br>
-        
-        <input type="submit" value="Delete">
-    </form>
+<hr>
 
+<h2>Update</h2>
+<form method="post" action="userDashboard.php">
+    <input type="hidden" name="action" value="update">
 
-    <hr>
+    <label for="table">UPDATE</label>
+    <input type="text" id="table" name="table" required><br><br>
 
-    <h2>Update</h2>
-    <form method="post" action="userDashboard.php">
-        <input type="hidden" name="action" value="update">
+    <label for="updateColumn">SET</label>
+    <input type="text" id="updateColumn" name="updateColumn" required>
+    =
+    <input type="text" id="updateValue" name="updateValue" required><br><br>
 
-        <label for="table">UPDATE</label>
-        <input type="text" id="table" name="table" required><br><br>
+    <label for="whereColumn">WHERE</label>
+    <input type="text" id="whereColumn" name="whereColumn" required>
 
-        <label for="updateColumn">SET</label>
-        <input type="text" id="updateColumn" name="updateColumn" required>
-        =
-        <input type="text" id="updateValue" name="updateValue" required><br><br>
+    <select name="sqlOperator" required>
+        <option value="=">=</option>
+        <option value="!=">!=</option>
+        <option value=">">&gt;</option>
+        <option value="<">&lt;</option>
+        <option value=">=">&gt;=</option>
+        <option value="<=">&lt;=</option>
+        <option value="LIKE">LIKE</option>
+        <option value="NOT LIKE">NOT LIKE</option>
+    </select>
 
-        <label for="whereColumn">WHERE</label>
-        <input type="text" id="whereColumn" name="whereColumn" required>
+    <input type="text" id="columnValue" name="columnValue" required><br><br>
 
-        <select name="sqlOperator" required>
-            <option value="=">=</option>
-            <option value="!=">!=</option>
-            <option value=">">&gt;</option>
-            <option value="<">&lt;</option>
-            <option value=">=">&gt;=</option>
-            <option value="<=">&lt;=</option>
-            <option value="LIKE">LIKE</option>
-            <option value="NOT LIKE">NOT LIKE</option>
-        </select>
-
-        <input type="text" id="columnValue" name="columnValue" required><br><br>
-
-        <input type="submit" value="Update">
-    </form>
-
-</body>
-</html>
+    <input type="submit" value="Update">
+</form>
