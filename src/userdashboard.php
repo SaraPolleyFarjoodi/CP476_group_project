@@ -16,20 +16,9 @@ try {
 
     // Handle POST actions
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['add'])) {
-            $stmt = $pdo->prepare("INSERT INTO Product (ProductID, ProductName, Description, Price, Quantity, Status, SupplierID) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$_POST['pid'], $_POST['name'], $_POST['desc'], $_POST['price'], $_POST['qty'], $_POST['status'], $_POST['sid']]);
-
-            $supplierName = $pdo->prepare("SELECT SupplierName FROM Supplier WHERE SupplierID = ?");
-            $supplierName->execute([$_POST['sid']]);
-            $name = $supplierName->fetchColumn();
-            if ($name) {
-                $stmt = $pdo->prepare("INSERT INTO Inventory (ProductID, ProductName, Quantity, Price, Status, SupplierName) VALUES (?, ?, ?, ?, ?, ?)");
-                $stmt->execute([$_POST['pid'], $_POST['name'], $_POST['qty'], $_POST['price'], $_POST['status'], $name]);
-            }
-        } elseif (isset($_POST['update'])) {
-            $stmt = $pdo->prepare("UPDATE Product SET ProductName=?, Description=?, Price=?, Quantity=?, Status=?, SupplierID=? WHERE ProductID=?");
-            $stmt->execute([$_POST['name'], $_POST['desc'], $_POST['price'], $_POST['qty'], $_POST['status'], $_POST['sid'], $_POST['pid']]);
+        if (isset($_POST['update'])) {
+            $stmt = $pdo->prepare("UPDATE Product SET ProductName=?, Description=?, Price=?, Quantity=?, Status=? WHERE ProductID=? AND SupplierID=?");
+            $stmt->execute([$_POST['name'], $_POST['desc'], $_POST['price'], $_POST['qty'], $_POST['status'], $_POST['pid'], $_POST['sid']]);
 
             $supplierName = $pdo->prepare("SELECT SupplierName FROM Supplier WHERE SupplierID = ?");
             $supplierName->execute([$_POST['sid']]);
@@ -39,17 +28,19 @@ try {
                 $stmt->execute([$_POST['name'], $_POST['qty'], $_POST['price'], $_POST['status'], $name, $_POST['pid']]);
             }
         } elseif (isset($_POST['delete'])) {
-            $pdo->prepare("DELETE FROM Product WHERE ProductID = ?")->execute([$_POST['pid']]);
-            $pdo->prepare("DELETE FROM Inventory WHERE ProductID = ?")->execute([$_POST['pid']]);
+            $pdo->prepare("DELETE FROM Product WHERE ProductID = ? AND SupplierID = ?")->execute([$_POST['pid']]);
+            $pdo->prepare("DELETE FROM Inventory WHERE ProductID = ? AND SupplierName IN (SELECT SupplierName FROM Supplier WHERE SupplierID = ?)")->execute([$_POST['pid'], $_POST['sid']]);
         }
     }
 
     // Load tables for display
     $tableData = [];
-    foreach (['Supplier', 'Product', 'Inventory'] as $table) {
+    foreach (['Supplier', 'Product'] as $table) {
         $stmt = $pdo->query("SELECT * FROM $table");
         $tableData[$table] = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    $stmt = $pdo->query("SELECT * FROM Inventory ORDER BY ProductID");
+    $tableData['Inventory'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Handle product search
     $searchResults = [];
@@ -107,28 +98,14 @@ try {
 
 <form method="post">
     <fieldset>
-        <legend>Add Product</legend>
-        ID: <input name="pid" required>
-        Name: <input name="name" required>
-        Desc: <input name="desc" required>
-        Price: <input name="price" required>
-        Qty: <input name="qty" required>
-        Status: <input name="status" required>
-        Supplier ID: <input name="sid" required>
-        <button name="add">Add</button>
-    </fieldset>
-</form>
-
-<form method="post">
-    <fieldset>
         <legend>Update Product</legend>
-        ID (to update): <input name="pid" required>
+        Product ID: <input name="pid" required>
+        Supplier ID: <input name="sid" required>
         New Name: <input name="name" required>
         New Desc: <input name="desc" required>
         New Price: <input name="price" required>
         New Qty: <input name="qty" required>
         New Status: <input name="status" required>
-        New Supplier ID: <input name="sid" required>
         <button name="update">Update</button>
     </fieldset>
 </form>
@@ -136,7 +113,8 @@ try {
 <form method="post">
     <fieldset>
         <legend>Delete Product</legend>
-        ID: <input name="pid" required>
+        Product ID: <input name="pid" required>
+        Supplier ID: <input name="sid" required>
         <button name="delete">Delete</button>
     </fieldset>
 </form>
@@ -167,6 +145,3 @@ try {
 <?php elseif (isset($_GET['search_id'])): ?>
     <p><i>No product found with that ID.</i></p>
 <?php endif; ?>
-
-</body>
-</html>
