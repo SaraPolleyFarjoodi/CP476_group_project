@@ -8,7 +8,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") { //check if the form is submitted (the
     $pass = $_POST['password'];
 
     //check if the username and password are correct and try to connect to the MySQL database
-    //to access the database, username should be appuser and password should be apppass
     try {
         $conn = new PDO('mysql:host=db;dbname=myapp;charset=utf8', $user, $pass); //connect to database called myapp
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //if an error occurs while using the connection, throw an exception
