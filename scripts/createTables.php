@@ -79,4 +79,4 @@ foreach (file($productFile) as $line) {
     }
 }
 
-echo "✅ Tables created and data inserted.\n";
+echo "Tables created and data inserted.\n";
