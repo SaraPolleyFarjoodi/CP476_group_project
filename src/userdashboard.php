@@ -5,6 +5,10 @@ if (!isset($_SESSION['db_user']) || !isset($_SESSION['db_pass'])) {
     die("Access denied. Please <a href='index.php'>login</a> first.");
 }
 
+// Prevent frontend caching
+header("Cache-Control: no-cache, must-revalidate");
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+
 $user = $_SESSION['db_user'];
 $pass = $_SESSION['db_pass'];
 $host = 'db';
@@ -17,19 +21,50 @@ try {
     // Handle POST actions
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['update'])) {
+            // Update Product table
             $stmt = $pdo->prepare("UPDATE Product SET ProductName=?, Description=?, Price=?, Quantity=?, Status=? WHERE ProductID=? AND SupplierID=?");
-            $stmt->execute([$_POST['name'], $_POST['desc'], $_POST['price'], $_POST['qty'], $_POST['status'], $_POST['pid'], $_POST['sid']]);
+            $stmt->execute([
+                $_POST['name'],
+                $_POST['desc'],
+                $_POST['price'],
+                $_POST['qty'],
+                $_POST['status'],
+                $_POST['pid'],
+                $_POST['sid']
+            ]);
 
+            // Get Supplier Name
             $supplierName = $pdo->prepare("SELECT SupplierName FROM Supplier WHERE SupplierID = ?");
             $supplierName->execute([$_POST['sid']]);
             $name = $supplierName->fetchColumn();
+
+            // Update Inventory table
             if ($name) {
-                $stmt = $pdo->prepare("UPDATE Inventory SET ProductName=?, Quantity=?, Price=?, Status=?, SupplierName=? WHERE ProductID=?");
-                $stmt->execute([$_POST['name'], $_POST['qty'], $_POST['price'], $_POST['status'], $name, $_POST['pid']]);
+                $stmt = $pdo->prepare("UPDATE Inventory SET ProductName=?, Quantity=?, Price=?, Status=? WHERE ProductID=? AND SupplierName=?");
+                $stmt->execute([
+                    $_POST['name'],
+                    $_POST['qty'],
+                    $_POST['price'],
+                    $_POST['status'],
+                    $_POST['pid'],
+                    $name
+                ]);
             }
+
         } elseif (isset($_POST['delete'])) {
-            $pdo->prepare("DELETE FROM Product WHERE ProductID = ? AND SupplierID = ?")->execute([$_POST['pid']]);
-            $pdo->prepare("DELETE FROM Inventory WHERE ProductID = ? AND SupplierName IN (SELECT SupplierName FROM Supplier WHERE SupplierID = ?)")->execute([$_POST['pid'], $_POST['sid']]);
+            // Delete from Product table
+            $pdo->prepare("DELETE FROM Product WHERE ProductID = ? AND SupplierID = ?")
+                ->execute([$_POST['pid'], $_POST['sid']]);
+
+            // Get Supplier Name for delete from Inventory
+            $supplierName = $pdo->prepare("SELECT SupplierName FROM Supplier WHERE SupplierID = ?");
+            $supplierName->execute([$_POST['sid']]);
+            $name = $supplierName->fetchColumn();
+
+            if ($name) {
+                $stmt = $pdo->prepare("DELETE FROM Inventory WHERE ProductID = ? AND SupplierName = ?");
+                $stmt->execute([$_POST['pid'], $name]);
+            }
         }
     }
 
