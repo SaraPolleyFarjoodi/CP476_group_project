@@ -20,7 +20,6 @@ $pdo->exec("
     );
     
     CREATE TABLE IF NOT EXISTS Product (
-        ID INT AUTO_INCREMENT PRIMARY KEY,
         ProductID INT,
         ProductName VARCHAR(255),
         Description VARCHAR(255),
@@ -28,6 +27,7 @@ $pdo->exec("
         Quantity INT,
         Status CHAR(1),
         SupplierID INT,
+        PRIMARY KEY (ProductID, SupplierID),
         FOREIGN KEY (SupplierID) REFERENCES Supplier(SupplierID)
     );
 
